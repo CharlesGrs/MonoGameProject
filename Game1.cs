@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Net.Mime;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,8 +7,10 @@ namespace MonoGameProject;
 
 public class Game1 : Game
 {
+    private Texture2D _texture;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+
 
     public Game1()
     {
@@ -26,8 +29,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        // TODO: use this.Content to load your game content here
+        _texture = Content.Load<Texture2D>("texture");
     }
 
     protected override void Update(GameTime gameTime)
@@ -35,7 +37,14 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+        var kState = Keyboard.GetState();
+
+
+        if (kState.IsKeyDown(Keys.D))
+        {
+            
+        }
+    
 
         base.Update(gameTime);
     }
@@ -43,8 +52,10 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        // TODO: Add your drawing code here
+        
+        _spriteBatch.Begin();
+        _spriteBatch.Draw(_texture, new Vector2(0,0), Color.White);
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }
