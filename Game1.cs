@@ -4,14 +4,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace MonoGameProject;
+namespace MonoGameDirectX;
 
 public class Game1 : Game
 {
-    private Texture2D _texture;
     private Texture2D pixel;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private Effect grayscaleEffect;
+    private RenderTarget2D renderTarget;
 
 
     public Game1()
@@ -29,7 +30,12 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _texture = Content.Load<Texture2D>("texture");
+
+        grayscaleEffect = Content.Load<Effect>("GrayscaleEffect");
+        renderTarget = new RenderTarget2D(GraphicsDevice,
+            GraphicsDevice.PresentationParameters.BackBufferWidth,
+            GraphicsDevice.PresentationParameters.BackBufferHeight);
+
 
         pixel = new Texture2D(GraphicsDevice, 1, 1);
         pixel.SetData(new Color[] { Color.White });
@@ -77,6 +83,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        GraphicsDevice.SetRenderTarget(renderTarget);
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
@@ -84,7 +91,15 @@ public class Game1 : Game
         {
             _spriteBatch.Draw(pixel, selectionRectangle, Color.Wheat);
         }
+
         _spriteBatch.End();
+        GraphicsDevice.SetRenderTarget(null);
+
+        _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque,
+            null, null, null, grayscaleEffect);
+        _spriteBatch.Draw(renderTarget, new Rectangle(0, 0, renderTarget.Width, renderTarget.Height), Color.White);
+        _spriteBatch.End();
+
 
         base.Draw(gameTime);
     }

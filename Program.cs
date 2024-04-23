@@ -1,3 +1,3 @@
 ﻿
-using var game = new MonoGameProject.Game1();
+using var game = new MonoGameDirectX.Game1();
 game.Run();
