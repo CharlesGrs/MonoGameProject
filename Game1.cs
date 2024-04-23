@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System;
+using System.Net.Mime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,6 +9,7 @@ namespace MonoGameProject;
 public class Game1 : Game
 {
     private Texture2D _texture;
+    private Texture2D pixel;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
@@ -21,8 +23,6 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-
         base.Initialize();
     }
 
@@ -30,21 +30,47 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _texture = Content.Load<Texture2D>("texture");
+
+        pixel = new Texture2D(GraphicsDevice, 1, 1);
+        pixel.SetData(new Color[] { Color.White });
     }
+
+    private Point startPoint;
+    private Point endPoint;
+    private Rectangle selectionRectangle;
+    private bool isSelecting = false;
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+            Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
         var kState = Keyboard.GetState();
+        var mState = Mouse.GetState();
 
 
-        if (kState.IsKeyDown(Keys.D))
+        if (mState.LeftButton == ButtonState.Pressed)
         {
-            
+            if (!isSelecting)
+            {
+                startPoint = mState.Position;
+                isSelecting = true;
+            }
+
+            endPoint = mState.Position;
+
+            int x = Math.Min(startPoint.X, endPoint.X);
+            int y = Math.Min(startPoint.Y, endPoint.Y);
+            int width = Math.Abs(startPoint.X - endPoint.X);
+            int height = Math.Abs(startPoint.Y - endPoint.Y);
+            selectionRectangle = new Rectangle(x, y, width, height);
         }
-    
+        else
+        {
+            isSelecting = false;
+        }
+
 
         base.Update(gameTime);
     }
@@ -52,9 +78,12 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        
+
         _spriteBatch.Begin();
-        _spriteBatch.Draw(_texture, new Vector2(0,0), Color.White);
+        if (isSelecting)
+        {
+            _spriteBatch.Draw(pixel, selectionRectangle, Color.Wheat);
+        }
         _spriteBatch.End();
 
         base.Draw(gameTime);
