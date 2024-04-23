@@ -9,8 +9,8 @@ public class InputManager
     #region PRIVATE FIELDS
 
     private bool isSelecting;
-    private Point startPoint;
-    private Point endPoint;
+    private Vector2 startPoint;
+    private Vector2 endPoint;
     private Rectangle selectionRectangle;
 
     #endregion
@@ -18,8 +18,9 @@ public class InputManager
     #region PUBLIC FIELDS
 
     public Camera mainCamera;
-    public event Action<Vector2> OnMove;
-    public event Action<Point> OnAddUnits;
+    public event Action<Vector2> OnCameraMove;
+    public event Action<Vector2> OnAddUnits;
+    public event Action<Vector2> OnUnitsMove;
     public event Action OnRemoveUnits;
     public event Action<Rectangle> OnSelecting;
 
@@ -59,19 +60,24 @@ public class InputManager
         if (keyboardState.IsKeyDown(Keys.S))
             moveVector.Y++;
 
-        OnMove?.Invoke(moveVector);
+        OnCameraMove?.Invoke(moveVector);
     }
 
     private void HandleUnitsInputs(KeyboardState keyboardState, MouseState mouseState)
     {
         if (keyboardState.IsKeyDown(Keys.A))
         {
-            OnAddUnits?.Invoke(GetWorldMousePosition(mouseState).ToPoint());
+            OnAddUnits?.Invoke(GetWorldMousePosition(mouseState));
         }
 
         if (keyboardState.IsKeyDown(Keys.R))
         {
             OnRemoveUnits?.Invoke();
+        }
+
+        if (mouseState.RightButton == ButtonState.Pressed)
+        {
+            OnUnitsMove?.Invoke(GetWorldMousePosition(mouseState));
         }
     }
 
@@ -83,11 +89,11 @@ public class InputManager
         {
             if (!isSelecting)
             {
-                startPoint = mousePosition.ToPoint();
+                startPoint = mousePosition;
                 isSelecting = true;
             }
 
-            endPoint = mousePosition.ToPoint();
+            endPoint = mousePosition;
 
             ComputeSelectionRectangle();
 
@@ -101,16 +107,16 @@ public class InputManager
 
     private void ComputeSelectionRectangle()
     {
-        int x = Math.Min(startPoint.X, endPoint.X);
-        int y = Math.Min(startPoint.Y, endPoint.Y);
-        int width = Math.Abs(startPoint.X - endPoint.X);
-        int height = Math.Abs(startPoint.Y - endPoint.Y);
+        var x = (int)Math.Min(startPoint.X, endPoint.X);
+        var y = (int)Math.Min(startPoint.Y, endPoint.Y);
+        var width = (int)Math.Abs(startPoint.X - endPoint.X);
+        var height = (int)Math.Abs(startPoint.Y - endPoint.Y);
         selectionRectangle = new Rectangle(x, y, width, height);
     }
 
-    public Vector2 GetWorldMousePosition(MouseState mouseState)
+    private Vector2 GetWorldMousePosition(MouseState mouseState)
     {
-        var invertedTransform = Matrix.Invert(mainCamera.Transform);
+        var invertedTransform = Matrix.Invert(mainCamera.ViewMatrix);
         var worldPosition = Vector2.Transform(mouseState.Position.ToVector2(), invertedTransform);
         return worldPosition;
     }

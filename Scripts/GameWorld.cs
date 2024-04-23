@@ -7,7 +7,6 @@ namespace MonoGameDirectX;
 
 public class GameWorld
 {
-    
     private UnitManager _unitManager;
 
     public GameWorld()
@@ -24,10 +23,5 @@ public class GameWorld
     {
         _unitManager.Draw(spriteBatch);
     }
-
-    public void Test()
-    {
-        Debug.WriteLine("it worked");
-    }
-
+    
 }

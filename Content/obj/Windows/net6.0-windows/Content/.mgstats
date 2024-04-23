@@ -1,3 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/GrayscaleEffect.fx","C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/bin/Windows/Content/GrayscaleEffect.xnb","EffectProcessor","CompiledEffectContent",321,779,0.2718476
-"C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/rogues.png","C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/bin/Windows/Content/rogues.xnb","TextureProcessor","Texture2DContent",4443,102485,0.1060948
+"C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/BackgroundShader.fx","C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/bin/Windows/Content/BackgroundShader.xnb","EffectProcessor","CompiledEffectContent",1350,599,0,2411142
