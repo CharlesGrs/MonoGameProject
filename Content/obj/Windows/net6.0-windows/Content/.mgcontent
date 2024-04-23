@@ -4,7 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/GrayscaleEffect.fx</File>
+    <File>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/GrayscaleEffect.fx</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
