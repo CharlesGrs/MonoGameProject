@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonoGameDirectX")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff1dac7c4f0b9424e2077d0514864989bd71ccea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonoGameDirectX")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonoGameDirectX")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

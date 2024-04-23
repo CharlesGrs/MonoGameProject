@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/GrayscaleEffect.fx</SourceFile>
-  <SourceTime>2024-04-23T17:14:43.1305068+02:00</SourceTime>
-  <DestFile>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/bin/Windows/Content/GrayscaleEffect.xnb</DestFile>
-  <DestTime>2024-04-23T17:17:29.9227289+02:00</DestTime>
+  <SourceFile>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/GrayscaleEffect.fx</SourceFile>
+  <SourceTime>2024-04-23T17:11:53.3655168+02:00</SourceTime>
+  <DestFile>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/bin/Windows/Content/GrayscaleEffect.xnb</DestFile>
+  <DestTime>2024-04-23T17:49:29.0799025+02:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>EffectProcessor</Processor>

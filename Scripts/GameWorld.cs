@@ -10,6 +10,11 @@ public class GameWorld
     
     private UnitManager _unitManager;
 
+    public GameWorld()
+    {
+        _unitManager = new UnitManager();
+    }
+
     public void Update(GameTime gametime)
     {
         _unitManager.Update(gametime);
@@ -22,7 +27,7 @@ public class GameWorld
 
     public void Test()
     {
-        Console.WriteLine("it worked");
+        Debug.WriteLine("it worked");
     }
 
 }

@@ -113,3 +113,4 @@ C:\Users\Legion\Documents\Work\Projects\MonoGameProject\obj\Debug\net6.0-windows
 C:\Users\Legion\Documents\Work\Projects\MonoGameProject\obj\Debug\net6.0-windows\MonoGameDirectX.pdb
 C:\Users\Legion\Documents\Work\Projects\MonoGameProject\obj\Debug\net6.0-windows\MonoGameDirectX.genruntimeconfig.cache
 C:\Users\Legion\Documents\Work\Projects\MonoGameProject\obj\Debug\net6.0-windows\ref\MonoGameDirectX.dll
+C:\Users\conta\OneDrive\Desktop\MonoGameProject\MonoGameProject\MonoGameProject\bin\Debug\net6.0-windows\Content\rogues.xnb
