@@ -15,9 +15,9 @@ public class UnitManager
     {
         _units = new List<Unit>();
         _selectedUnits = new List<Unit>();
-        InputManager.Instance.OnButtonAPressed += AddUnit;
+        InputManager.Instance.OnAddUnits += AddUnit;
         InputManager.Instance.OnSelecting += TestSelectionUnits;
-        InputManager.Instance.OnButtonRPressed += RemoveSelectedUnits;
+        InputManager.Instance.OnRemoveUnits += RemoveSelectedUnits;
     }
 
     private void RemoveSelectedUnits()

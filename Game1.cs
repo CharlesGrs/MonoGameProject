@@ -17,6 +17,8 @@ public class Game1 : Game
     private GameWorld _gameWorld;
     private Camera _camera;
 
+    public static int ScreenHeight = 1080;
+    public static int ScreenWidth = 1920;
 
     public Game1()
     {
@@ -31,7 +33,13 @@ public class Game1 : Game
         _camera = new Camera();
         _gameWorld = new GameWorld();
 
+        _graphics.IsFullScreen = false;
+        _graphics.PreferredBackBufferWidth = ScreenWidth;
+        _graphics.PreferredBackBufferHeight = ScreenHeight;
+        _graphics.ApplyChanges();
+
         InputManager.Instance.OnSelecting += DrawRectangle;
+        InputManager.Instance.mainCamera = _camera;
         base.Initialize();
     }
 
@@ -54,35 +62,9 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-        //
         _gameWorld.Update(gameTime);
         _camera.Update(gameTime);
         InputManager.Instance.Update(gameTime);
-
-        // var kState = Keyboard.GetState();
-        // var mState = Mouse.GetState();
-        //
-        //
-        // if (mState.LeftButton == ButtonState.Pressed)
-        // {
-        //     if (!isSelecting)
-        //     {
-        //         startPoint = mState.Position;
-        //         isSelecting = true;
-        //     }
-        //
-        //     endPoint = mState.Position;
-        //
-        //     int x = Math.Min(startPoint.X, endPoint.X);
-        //     int y = Math.Min(startPoint.Y, endPoint.Y);
-        //     int width = Math.Abs(startPoint.X - endPoint.X);
-        //     int height = Math.Abs(startPoint.Y - endPoint.Y);
-        //     selectionRectangle = new Rectangle(x, y, width, height);
-        // }
-        // else
-        // {
-        //     isSelecting = false;
-        // }
 
 
         base.Update(gameTime);
@@ -90,6 +72,7 @@ public class Game1 : Game
 
     private bool _drawRectangle;
     private Rectangle _selectionRectangle;
+
     private void DrawRectangle(Rectangle selectionRectangle)
     {
         _selectionRectangle = selectionRectangle;
@@ -100,9 +83,12 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-      
-        _spriteBatch.Begin();
-        
+
+        _spriteBatch.Begin(SpriteSortMode.Deferred,
+            BlendState.AlphaBlend, null,
+            null, null,
+            null, _camera.Transform);
+
         if (_drawRectangle)
         {
             _spriteBatch.Draw(pixel, _selectionRectangle, Color.White);
@@ -110,6 +96,7 @@ public class Game1 : Game
         }
 
         _gameWorld.Draw(_spriteBatch);
+
         _spriteBatch.End();
 
         base.Draw(gameTime);
