@@ -107,9 +107,11 @@ public class UnitManager
         // Traverse the grid
         for (int i = 0; i < maxSteps; i++)
         {
-            unit.path.Add(new Vector2(x, y));
-            if (GameWorld.Instance.worldGrid[x / GameWorld.TileSize, y / GameWorld.TileSize].objectId != 0)
-                return new Vector2(x, y);
+            unit.path.Add(new Vector2(x, y) * GameWorld.TileSize);
+
+            if (GameWorld.Instance.worldGrid[x, y].objectId != 0)
+                return new Vector2(x, y) * GameWorld.TileSize;
+
             if (tMaxX < tMaxY)
             {
                 tMaxX += tDeltaX;
@@ -122,21 +124,19 @@ public class UnitManager
             }
         }
 
-        return new Vector2(x, y);
+        return new Vector2(x, y) * GameWorld.TileSize;
     }
 
     private void ChangeUnitsTargetPosition(Vector2 targetPosition)
     {
-        Random rand = new Random();
-
         foreach (var unit in _selectedUnits)
         {
             Vector2 direction = Vector2.Normalize(targetPosition - unit.position);
             float distance = Vector2.Distance(unit.position, targetPosition);
-            var ray = new Ray(unit.position.X, unit.position.Y, direction.X, direction.Y);
+            var ray = new Ray(unit.position.X /GameWorld.TileSize, unit.position.Y/GameWorld.TileSize, direction.X, direction.Y);
             Vector2 intersectionPoint = VoxelTraversal(ray, (int)distance, unit);
 
-            unit.targetPosition = intersectionPoint + RandomInCircle(rand, 1f);
+            unit.targetPosition = intersectionPoint;
             unit.isSelected = false;
         }
 
@@ -153,22 +153,13 @@ public class UnitManager
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        _units.Sort((u1, u2) => (u1.position.Y - u1.hopping).CompareTo(u2.position.Y - u2.hopping));
-
         foreach (var unit in _units)
         {
-            spriteBatch.Draw(Resource.Instance.pixel, unit.targetPosition - new Vector2(8, 0),
-                new Rectangle(0, 0, 16, 16), unit.isSelected ? Color.Blue : Color.White);
-        }
-
-        foreach (var unit in _units)
-        {
-            spriteBatch.Draw(Resource.Instance.unitTexture, unit.position - new Vector2(16, 16),
-                new Rectangle(0, 0, 32, 32), unit.isSelected ? Color.Blue : Color.White);
+            unit.Draw(spriteBatch);
 
             for (int i = 1; i < unit.path.Count; i++)
             {
-                Primitives2D.DrawLine(spriteBatch, unit.path[i - 1], unit.path[i], Color.GhostWhite);
+                Primitives2D.DrawRectangle(spriteBatch, unit.path[i], Vector2.One * 31, Color.GhostWhite);
             }
         }
     }

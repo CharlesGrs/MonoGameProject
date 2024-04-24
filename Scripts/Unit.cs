@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
+using C3.MonoGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,7 +9,7 @@ namespace MonoGameDirectX;
 
 public class Unit
 {
-    private static readonly Vector2 Offset = new Vector2(16, 16);
+    private static readonly Vector2 Offset = new (16, 16);
     private float speed = 1.0f;
     public float hopping = 0.0f;
     private float hoppingFrequency = 10.0f;
@@ -41,7 +42,7 @@ public class Unit
             position += direction * speed;
         }
 
-        var t = (float)(gametime.TotalGameTime.TotalSeconds + new Random(iD).NextDouble());
+        var t = gametime.TotalGameTime.TotalSeconds;
         hopping = (float)Math.Abs(Math.Sin(t * hoppingFrequency) * hoppingHeight);
 
         position.Y -= hopping;
@@ -55,9 +56,8 @@ public class Unit
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(Resource.Instance.pixel, targetPosition - new Vector2(8,0), new Rectangle(0, 0, 16, 16),isSelected ? Color.Blue : Color.White);
-        
+        Primitives2D.DrawCircle(spriteBatch, targetPosition, 8f, 8, isSelected ? Color.Cyan : Color.White);
         spriteBatch.Draw(Resource.Instance.unitTexture, position - Offset,
-            new Rectangle(0, 0, 32, 32), isSelected ? Color.Blue : Color.White);
+            new Rectangle(0, 0, 32, 32), isSelected ? Color.Cyan : Color.White);
     }
 }
