@@ -1,6 +1,6 @@
 sampler2D inputTexture : register(s0);
 
-cbuffer MatrixBuffer : register(b0)
+cbuffer MatrixBuffer : register(b1)
 {
      matrix ViewMatrix;
      matrix ProjectionMatrix;
@@ -9,7 +9,7 @@ cbuffer MatrixBuffer : register(b0)
      matrix InverseProjectionMatrix;
 }
 
-cbuffer ScreenDimensionsBuffer : register(b1)
+cbuffer ScreenDimensionsBuffer : register(b0)
 {
     float2 ScreenDimensions;
 }
@@ -24,28 +24,35 @@ float4 SampleTile(float2 uv)
     return 0;
 }
 
-//float4 ScreenSpaceToWorld(float4 screenPosition)
-//{
-//    float4 clipSpacePosition;
-//    clipSpacePosition.xy = (screenPosition.xy / ScreenDimensions) * 2.0 - 1.0;  //remap to [-1, 1]
-//    clipSpacePosition.z = 0;  // depth 
-//    clipSpacePosition.w = 1.0;
-//
-//    // Transform to view space
-//    float4 viewSpacePosition = mul(clipSpacePosition, InverseProjectionMatrix);
-//    viewSpacePosition /= viewSpacePosition.w;
-//
-//    // Transform to world space
-//    float4 worldPosition = mul(viewSpacePosition, InverseViewMatrix);
-//
-//    return worldPosition;
-//}
+float4 ScreenSpaceToWorld(float4 screenPosition)
+{
+        
+    float4 clipSpacePosition;
+    clipSpacePosition.xy = (screenPosition.xy / ScreenDimensions) * 2.0 - 1.0;  //remap to [-1, 1]
+    clipSpacePosition.z = 0;  // depth 
+    clipSpacePosition.w = 1.0;
+    
+    return clipSpacePosition;
+
+
+    // Transform to view space
+    float4 viewSpacePosition = mul(clipSpacePosition, InverseProjectionMatrix);
+    viewSpacePosition /= viewSpacePosition.w;
+    
+    return viewSpacePosition;
+
+    // Transform to world space
+    float4 worldPosition = mul(viewSpacePosition, InverseViewMatrix);
+
+    return worldPosition;
+}
 
 float4 MainPS(float4 position : SV_Position, float4 col : COLOR0, float2 uv : TEXCOORD0) : COLOR0
 {
-    //float4 worldPosition = ScreenSpaceToWorld(position);
+    float4 screenPosition = float4(uv.x * ScreenDimensions.x, (1 - uv.y) * ScreenDimensions.y, 0, 1);
+    float4 worldPosition = ScreenSpaceToWorld(screenPosition);
     
-    return 0;
+    return worldPosition;
 }
 
 technique PostProcess

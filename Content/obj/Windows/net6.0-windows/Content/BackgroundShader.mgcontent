@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/BackgroundShader.fx</SourceFile>
-  <SourceTime>2024-04-24T01:08:38.013574+02:00</SourceTime>
+  <SourceTime>2024-04-24T03:13:57.136387+02:00</SourceTime>
   <DestFile>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/bin/Windows/Content/BackgroundShader.xnb</DestFile>
-  <DestTime>2024-04-24T01:08:39.2530353+02:00</DestTime>
+  <DestTime>2024-04-24T03:13:58.4325374+02:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>EffectProcessor</Processor>

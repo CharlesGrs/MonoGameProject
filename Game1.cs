@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -59,6 +60,8 @@ public class Game1 : Game
         Resource.Instance.LoadContent(Content, GraphicsDevice);
 
         backgroundShader = Content.Load<Effect>("BackgroundShader");
+        
+        backgroundShader.Parameters["ScreenDimensions"]?.SetValue(new Vector2(ScreenWidth, ScreenHeight));
 
         // renderTarget = new RenderTarget2D(GraphicsDevice,
         //     GraphicsDevice.PresentationParameters.BackBufferWidth,
@@ -82,7 +85,6 @@ public class Game1 : Game
     {
         _selectionRectangle = selectionRectangle;
         _drawRectangle = true;
-        Debug.WriteLine("Test");
     }
 
     protected override void Draw(GameTime gameTime)
@@ -94,18 +96,15 @@ public class Game1 : Game
 
         // Set the parameter in the shader
 
-        // backgroundShader.Parameters["ScreenDimensions"].SetValue(new Vector2(ScreenWidth, ScreenHeight));
-        // backgroundShader.CurrentTechnique.Passes[0].Apply();
-        //
-        //
-        // backgroundShader.Parameters["InverseProjectionMatrix"].SetValue(InverseProjectionMatrix);
-        // backgroundShader.Parameters["ProjectionMatrix"].SetValue(ProjectionMatrix);
-        //
-        // backgroundShader.Parameters["ViewMatrix"].SetValue(_camera.ViewMatrix);
-        // backgroundShader.Parameters["InverseViewMatrix"].SetValue(_camera.InverseViewMatrix);
+
+        backgroundShader.Parameters["InverseProjectionMatrix"]?.SetValue(InverseProjectionMatrix);
+        backgroundShader.Parameters["ProjectionMatrix"]?.SetValue(ProjectionMatrix);
+        
+        backgroundShader.Parameters["ViewMatrix"]?.SetValue(_camera.ViewMatrix);
+        backgroundShader.Parameters["InverseViewMatrix"]?.SetValue(_camera.InverseViewMatrix);
 
         //Multiple texture setup 
-        _spriteBatch.GraphicsDevice.Textures[0] = Resource.Instance.tilesTexture;
+        // _spriteBatch.GraphicsDevice.Textures[0] = Resource.Instance.tilesTexture;
         backgroundShader.CurrentTechnique.Passes[0].Apply();
 
         _spriteBatch.Draw(Resource.Instance.pixel, new Rectangle(0, 0, ScreenWidth, ScreenHeight), Color.White);

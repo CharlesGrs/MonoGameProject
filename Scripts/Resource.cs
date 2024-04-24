@@ -20,6 +20,6 @@ public class Resource
         tilesTexture = contentManager.Load<Texture2D>("tiles");
         
         pixel = new Texture2D(graphicsDevice, 1, 1);
-        pixel.SetData(new Color[] { Color.White });
+        pixel.SetData(new Color[] { new Color(.7f,.7f,.7f) });
     }
 }
