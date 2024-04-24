@@ -4,10 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/BackgroundShader.fx</File>
-    <File>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/GrayscaleEffect.fx</File>
-    <File>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/rogues.png</File>
-    <File>C:/Users/Legion/Documents/Work/Projects/MonoGameProject/Content/tiles.png</File>
+    <File>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/BackgroundShader.fx</File>
+    <File>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/GrayscaleEffect.fx</File>
+    <File>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/rogues.png</File>
+    <File>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/tiles.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

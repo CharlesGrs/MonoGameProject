@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameProject/Content/BackgroundShader.fx</File>
     <File>C:/Users/conta/OneDrive/Desktop/MonoGameProject/MonoGameProject/MonoGameDirectX/Content/GrayscaleEffect.fx</File>
   </SourceFiles>
   <DestFiles>

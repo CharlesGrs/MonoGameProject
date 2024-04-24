@@ -34,7 +34,6 @@ float4 ScreenSpaceToWorld(float4 screenPosition)
     
     return clipSpacePosition;
 
-
     // Transform to view space
     float4 viewSpacePosition = mul(clipSpacePosition, InverseProjectionMatrix);
     viewSpacePosition /= viewSpacePosition.w;

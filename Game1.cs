@@ -42,7 +42,7 @@ public class Game1 : Game
     {
         Debug.WriteLine("Init");
         _camera = new Camera();
-        _gameWorld = new GameWorld();
+        _gameWorld = GameWorld.Instance;
 
         _graphics.IsFullScreen = false;
         _graphics.PreferredBackBufferWidth = ScreenWidth;
@@ -60,7 +60,7 @@ public class Game1 : Game
         Resource.Instance.LoadContent(Content, GraphicsDevice);
 
         backgroundShader = Content.Load<Effect>("BackgroundShader");
-        
+
         backgroundShader.Parameters["ScreenDimensions"]?.SetValue(new Vector2(ScreenWidth, ScreenHeight));
 
         // renderTarget = new RenderTarget2D(GraphicsDevice,
@@ -89,27 +89,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, null, null, null, backgroundShader);
-
-
-        // Set the parameter in the shader
-
-
-        backgroundShader.Parameters["InverseProjectionMatrix"]?.SetValue(InverseProjectionMatrix);
-        backgroundShader.Parameters["ProjectionMatrix"]?.SetValue(ProjectionMatrix);
-        
-        backgroundShader.Parameters["ViewMatrix"]?.SetValue(_camera.ViewMatrix);
-        backgroundShader.Parameters["InverseViewMatrix"]?.SetValue(_camera.InverseViewMatrix);
-
-        //Multiple texture setup 
-        // _spriteBatch.GraphicsDevice.Textures[0] = Resource.Instance.tilesTexture;
-        backgroundShader.CurrentTechnique.Passes[0].Apply();
-
-        _spriteBatch.Draw(Resource.Instance.pixel, new Rectangle(0, 0, ScreenWidth, ScreenHeight), Color.White);
-        _spriteBatch.End();
-
+        GraphicsDevice.Clear(Color.Black);
 
         _spriteBatch.Begin(SpriteSortMode.Deferred,
             BlendState.AlphaBlend, null,
@@ -117,13 +97,19 @@ public class Game1 : Game
             null, _camera.ViewMatrix);
 
 
+        _gameWorld.Draw(_spriteBatch);
+
+        _spriteBatch.End();
+
+        _spriteBatch.Begin(SpriteSortMode.Deferred,
+            BlendState.Additive, null,
+            null, null,
+            null, _camera.ViewMatrix);
         if (_drawRectangle)
         {
-            _spriteBatch.Draw(Resource.Instance.pixel, _selectionRectangle, Color.White);
+            _spriteBatch.Draw(Resource.Instance.pixel, _selectionRectangle, Color.White*.45f);
             _drawRectangle = false;
         }
-
-        _gameWorld.Draw(_spriteBatch);
 
         _spriteBatch.End();
 

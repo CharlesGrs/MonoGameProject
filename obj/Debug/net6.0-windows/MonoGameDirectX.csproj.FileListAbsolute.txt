@@ -117,3 +117,5 @@ C:\Users\conta\OneDrive\Desktop\MonoGameProject\MonoGameProject\MonoGameProject\
 C:\Users\Legion\Documents\Work\Projects\MonoGameProject\bin\Debug\net6.0-windows\Content\rogues.xnb
 C:\Users\Legion\Documents\Work\Projects\MonoGameProject\bin\Debug\net6.0-windows\Content\tiles.xnb
 C:\Users\Legion\Documents\Work\Projects\MonoGameProject\bin\Debug\net6.0-windows\Content\BackgroundShader.xnb
+C:\Users\conta\OneDrive\Desktop\MonoGameProject\MonoGameProject\MonoGameProject\bin\Debug\net6.0-windows\Content\BackgroundShader.xnb
+C:\Users\conta\OneDrive\Desktop\MonoGameProject\MonoGameProject\MonoGameProject\bin\Debug\net6.0-windows\Content\tiles.xnb

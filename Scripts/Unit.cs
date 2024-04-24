@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,11 +20,14 @@ public class Unit
     public Vector2 targetPosition;
     public bool isSelected = false;
 
+    public List<Vector2> path;
+
     public Unit(Vector2 position,int iD)
     {
         this.position = position;
         this.iD = iD;
         targetPosition = position;
+        path = new List<Vector2>();
     }
 
     private void Move(GameTime gametime)
@@ -55,7 +59,5 @@ public class Unit
         
         spriteBatch.Draw(Resource.Instance.unitTexture, position - Offset,
             new Rectangle(0, 0, 32, 32), isSelected ? Color.Blue : Color.White);
-        
-        
     }
 }
