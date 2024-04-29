@@ -58,6 +58,7 @@ public class UnitManager
 
     private void AddUnit(Vector2 mousePosition)
     {
+        if (GameWorld.Instance.GetIsOccupied(mousePosition)) return;
         _units.Add(new Unit(mousePosition, currentId));
         currentId++;
     }
@@ -107,7 +108,7 @@ public class UnitManager
         // Traverse the grid
         for (int i = 0; i < maxSteps; i++)
         {
-            unit.path.Add(new Vector2(x, y) * GameWorld.TileSize);
+            unit.path.Add(new Vector2(x + GameWorld.TileSize / 2, y + GameWorld.TileSize / 2) * GameWorld.TileSize);
 
             if (GameWorld.Instance.worldGrid[x, y].objectId != 0)
                 return new Vector2(x, y) * GameWorld.TileSize;
@@ -131,16 +132,16 @@ public class UnitManager
     {
         foreach (var unit in _selectedUnits)
         {
-            Vector2 direction = Vector2.Normalize(targetPosition - unit.position);
-            float distance = Vector2.Distance(unit.position, targetPosition);
-            var ray = new Ray(unit.position.X /GameWorld.TileSize, unit.position.Y/GameWorld.TileSize, direction.X, direction.Y);
-            Vector2 intersectionPoint = VoxelTraversal(ray, (int)distance, unit);
+            //  Vector2 direction = Vector2.Normalize(targetPosition - unit.position);
+            // float distance = Vector2.Distance(unit.position, targetPosition);
+            //     var ray = new Ray(unit.position.X / GameWorld.TileSize, unit.position.Y / GameWorld.TileSize, direction.X,
+            //        direction.Y);
+            //  Vector2 intersectionPoint = VoxelTraversal(ray, (int)distance, unit);
 
-            unit.targetPosition = intersectionPoint;
-            unit.isSelected = false;
+            unit.TargetPosition = targetPosition;
         }
 
-        _selectedUnits.Clear();
+        // _selectedUnits.Clear();
     }
 
     public void Update(GameTime gametime)
